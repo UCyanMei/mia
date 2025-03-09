@@ -124,8 +124,8 @@ class PIA(DDIMAttacker):
         # 计算每个时间步的β值
         beta = torch.quantile(raw_score, 0.25, dim=0)  # 按时间步计算
 
-        # score = 1 - F.softmax(-(raw_score-beta.unsqueeze(0))/temperature, dim=0)
-        score = raw_score
+        score = 1 - F.softmax(-(raw_score-beta.unsqueeze(0))/temperature, dim=0)
+        # score = raw_score
         return score
 
     def ddim_reverse(self, x0, condition):
